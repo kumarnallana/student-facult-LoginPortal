@@ -1,8 +1,22 @@
-// * KITE ACADEMIC PORTAL - FRONTEND LOGIC
-//  * CONNECTED TO PYTHON BACKEND
-//  */
+/**
+ * KITE ACADEMIC PORTAL - PURE FRONTEND VERSION
+ * STORAGE: LocalStorage (Browser Database)
+ */
 
-const API_URL = "http://localhost:5000"; // Address of your Python Server
+// ==================== CONFIGURATION ====================
+const STORAGE_KEY = "kite_portal_data";
+
+// Mock Database for Authentication (Formerly in Python)
+const FACULTY_CREDENTIALS = {
+  "APARNA": "APARNA4508",
+  "KUMARNALLANA": "KUMAR4505",
+};
+
+const STUDENT_CREDENTIALS = {
+  "HAIMA": "HAIMA4502",
+  "DURGAPRASAD": "DURGA450x",
+  "SHIVA": "SHIVA450x"
+};
 
 // ==================== APPLICATION STATE ====================
 const AppState = {
@@ -33,14 +47,18 @@ class Student {
       this.grade = "Fail";
       return;
     }
-    this.total_marks = this.marks.reduce((sum, mark) => sum + mark, 0);
-    this.percentage = this.total_marks / this.marks.length;
+    // Ensure marks are numbers
+    const numericMarks = this.marks.map(m => Number(m));
+    this.total_marks = numericMarks.reduce((sum, mark) => sum + mark, 0);
+    this.percentage = this.total_marks / numericMarks.length;
 
     if (this.percentage >= 90) this.grade = "A";
     else if (this.percentage >= 75) this.grade = "B";
     else if (this.percentage >= 50) this.grade = "C";
     else if (this.percentage >= 35) this.grade = "D";
     else this.grade = "Fail";
+    
+    this.marks = numericMarks; // Update with clean numbers
   }
 
   static fromJSON(data) {
@@ -98,8 +116,7 @@ const DOM = {
 // ==================== INITIALIZATION ====================
 function init() {
   cacheDOMElements();
-  // We now load from Python, not LocalStorage
-  fetchStudents();
+  loadDataFromStorage(); // Replaces fetchStudents()
   setupEventListeners();
 }
 
@@ -147,58 +164,85 @@ function cacheDOMElements() {
   DOM.toastContainer = document.getElementById("toast-container");
 }
 
-// ==================== PYTHON CONNECTION LOGIC ====================
+// ==================== PURE JS DATA LOGIC (No Python) ====================
 
-// 1. GET Data from Python
-async function fetchStudents() {
-  try {
-    const response = await fetch(`${API_URL}/students`);
-    const data = await response.json();
-    AppState.students = data.map((s) => Student.fromJSON(s));
-    refreshAllUI();
-    console.log("Synced with Python Database");
-  } catch (error) {
-    console.error("Failed to connect to Python:", error);
-    showToast("Error: Python Backend is not running!", "error");
+// 1. LOAD Data (Replaces GET /students)
+function loadDataFromStorage() {
+  const storedData = localStorage.getItem(STORAGE_KEY);
+  if (storedData) {
+    try {
+      const parsedData = JSON.parse(storedData);
+      AppState.students = parsedData.map((s) => Student.fromJSON(s));
+    } catch (e) {
+      console.error("Corrupt data in storage, resetting.");
+      AppState.students = [];
+    }
+  } else {
+    // Optional: Default/Sample Data if nothing exists
+    AppState.students = [];
   }
+  refreshAllUI();
+  console.log("Synced with LocalStorage");
 }
 
-// 2. SEND Data to Python
-async function saveStudent(student) {
-  try {
-    await fetch(`${API_URL}/students`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(student),
-    });
-    fetchStudents(); // Refresh data after save
-  } catch (error) {
-    showToast("Failed to save to database", "error");
+// 2. SAVE Data (Replaces POST /students)
+function saveStudentToStorage(student) {
+  // Logic: "Upsert" - Update if exists, else Add
+  const existingIndex = AppState.students.findIndex(s => s.roll_no === student.roll_no);
+  
+  if (existingIndex >= 0) {
+    // Preserve attendance if not explicitly changing it, unless it's a new overwrite
+    const oldStudent = AppState.students[existingIndex];
+    if(student.attendance === "Not Marked") {
+        student.attendance = oldStudent.attendance; 
+    }
+    AppState.students[existingIndex] = student;
+  } else {
+    AppState.students.push(student);
   }
+
+  // Sort by Roll No (like Python did)
+  AppState.students.sort((a, b) => a.roll_no.localeCompare(b.roll_no));
+
+  commitToLocalStorage();
 }
 
-// 3. DELETE Data in Python
-async function deleteStudent(roll_no) {
-  try {
-    await fetch(`${API_URL}/students/${roll_no}`, { method: "DELETE" });
-    fetchStudents(); // Refresh data after delete
-  } catch (error) {
-    showToast("Failed to delete", "error");
-  }
+// 3. DELETE Data (Replaces DELETE /students)
+function deleteStudentFromStorage(roll_no) {
+  AppState.students = AppState.students.filter(s => s.roll_no !== roll_no);
+  commitToLocalStorage();
 }
 
-// ==================== AUTHENTICATION ====================
-async function authenticateUser(username, password) {
-  try {
-    const response = await fetch(`${API_URL}/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
-    });
-    return await response.json();
-  } catch (error) {
-    return { success: false, error: "Cannot connect to server" };
-  }
+// Helper to write to browser memory
+function commitToLocalStorage() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(AppState.students));
+  refreshAllUI();
+}
+
+// ==================== AUTHENTICATION (PURE JS) ====================
+function authenticateUserLocal(username, password) {
+  // Simulate API Delay for realism
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      // 1. Faculty Check
+      if (FACULTY_CREDENTIALS[username] && FACULTY_CREDENTIALS[username] === password) {
+        resolve({ success: true, role: "Faculty", username: username });
+        return;
+      }
+      
+      // 2. Student Check
+      if (STUDENT_CREDENTIALS[username] && STUDENT_CREDENTIALS[username] === password) {
+        // Find existing data for this student
+        const studentData = AppState.students.find(s => s.name.toUpperCase() === username);
+        const roll_no = studentData ? studentData.roll_no : "UNKNOWN";
+        
+        resolve({ success: true, role: "Student", username: username, roll_no: roll_no });
+        return;
+      }
+
+      resolve({ success: false, error: "Invalid credentials" });
+    }, 500);
+  });
 }
 
 function login(username, role, roll_no = null) {
@@ -211,8 +255,8 @@ function login(username, role, roll_no = null) {
     DOM.facultyName.textContent = username;
   } else {
     // Refresh data to ensure we have latest
-    fetchStudents().then(() => {
-      const student = AppState.students.find((s) => s.roll_no === roll_no);
+    loadDataFromStorage();
+    const student = AppState.students.find((s) => s.roll_no === roll_no);
       AppState.currentStudentView = student || {
         name: username,
         roll_no: roll_no || "N/A",
@@ -224,27 +268,22 @@ function login(username, role, roll_no = null) {
       };
       showScreen("student-portal");
       updateStudentView();
-    });
   }
   showToast(`${role} login successful`, "success");
 }
 
 function logout() {
-  // 1. Reset User State
   AppState.user = null;
   AppState.role = null;
   AppState.previewMode = false;
-  AppState.students = [];
-
-  // 2. Visual Reset (Hide all screens, show login)
+  // We do NOT clear AppState.students here because we want data to persist
+  // Just reset the view
   document
     .querySelectorAll(".screen")
     .forEach((s) => s.classList.remove("active"));
   document.getElementById("login-screen").classList.add("active");
 
-  // 3. Reset Forms
   if (DOM.loginForm) DOM.loginForm.reset();
-
   showToast("Logged out successfully", "success");
 }
 
@@ -287,8 +326,7 @@ function addStudent(payload) {
   student.attendance = "Not Marked"; // Default
   student.calculateResult();
 
-  // Send to Python
-  saveStudent(student);
+  saveStudentToStorage(student); // Call Local function
   showToast("New student added", "success");
 }
 
@@ -296,7 +334,6 @@ function updateStudent(roll_no, payload) {
   requireFaculty("Update Student");
   if (isReadOnly()) return showToast("Cannot modify in preview mode", "error");
 
-  // Find existing to merge data
   const existing = AppState.students.find((s) => s.roll_no === roll_no);
   if (!existing) return;
 
@@ -305,8 +342,7 @@ function updateStudent(roll_no, payload) {
   student.attendance = existing.attendance;
   student.calculateResult();
 
-  // Send to Python
-  saveStudent(student);
+  saveStudentToStorage(student); // Call Local function
   showToast("Student updated successfully", "success");
 }
 
@@ -314,8 +350,7 @@ function handleDeleteStudent(roll_no) {
   requireFaculty("Delete Student");
   if (isReadOnly()) return showToast("Cannot delete in preview mode", "error");
 
-  // Send delete command to Python
-  deleteStudent(roll_no);
+  deleteStudentFromStorage(roll_no); // Call Local function
   showToast("Student record deleted", "success");
 }
 
@@ -332,9 +367,8 @@ function markAttendance(roll_no, status) {
     previous: student.attendance,
   });
 
-  // Update locally then sync
   student.attendance = status;
-  saveStudent(student);
+  saveStudentToStorage(student); // Update storage
   showToast("Attendance updated", "success");
 }
 
@@ -351,7 +385,7 @@ function undoAttendance() {
 
   if (student) {
     student.attendance = lastAction.previous;
-    saveStudent(student);
+    saveStudentToStorage(student); // Update storage
     showToast("Action undone", "success");
   }
 }
@@ -388,8 +422,6 @@ function refreshStudentTable() {
 
   DOM.studentTableBody.innerHTML = AppState.students
     .map((student) => {
-      // LOGIC: Join the marks array into a readable string
-      // If marks exist: "90, 80" | If not: "No Subjects"
       const marksDisplay =
         student.marks && student.marks.length > 0
           ? student.marks.join(", ")
@@ -505,7 +537,7 @@ function updateStudentView() {
   }
 }
 
-// ==================== CHART RENDERING (Pure CSS/JS) ====================
+// ==================== CHART RENDERING ====================
 function renderGradeChart() {
   if (!DOM.gradeChart) return;
   const grades = { A: 0, B: 0, C: 0, D: 0, Fail: 0 };
@@ -612,7 +644,7 @@ function renderPerformersChart() {
 // ==================== EVENT HANDLERS & LISTENERS ====================
 function handleLogin(e) {
   e.preventDefault();
-  const username = DOM.loginUsername.value.trim();
+  const username = DOM.loginUsername.value.trim().toUpperCase(); // Changed to UpperCase to match keys
   const password = DOM.loginPassword.value.trim();
   DOM.usernameError.textContent = "";
   DOM.passwordError.textContent = "";
@@ -625,7 +657,8 @@ function handleLogin(e) {
     return;
   }
 
-  authenticateUser(username, password).then((result) => {
+  // UPDATED: Call the local function
+  authenticateUserLocal(username, password).then((result) => {
     if (result.success) {
       login(result.username, result.role, result.roll_no);
     } else {
@@ -732,12 +765,6 @@ function setupEventListeners() {
     .forEach((btn) =>
       btn.addEventListener("click", () => handleStudentTabChange(btn)),
     );
-  document
-    .querySelector('button[aria-label="Login with Google"]')
-    .addEventListener("click", () => handleSocialLogin("Google"));
-  document
-    .querySelector('button[aria-label="Login with GitHub"]')
-    .addEventListener("click", () => handleSocialLogin("GitHub"));
 }
 
 // ==================== GLOBAL HELPERS ====================
