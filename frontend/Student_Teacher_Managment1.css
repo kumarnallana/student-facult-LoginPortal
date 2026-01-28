@@ -1,10 +1,4 @@
-/**
- * KITE ACADEMIC PORTAL - DESIGN SYSTEM
- * Pure CSS3 - No frameworks
- * Author: KITE Academic Portal
- */
 
-/* ==================== CSS VARIABLES ==================== */
 :root {
   /* Primary Colors */
   --primary: hsl(239, 84%, 67%);
@@ -1230,3 +1224,4 @@ body {
     align-self: flex-start;
   }
 }
+
