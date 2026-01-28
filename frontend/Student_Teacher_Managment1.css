@@ -1,0 +1,1232 @@
+/**
+ * KITE ACADEMIC PORTAL - DESIGN SYSTEM
+ * Pure CSS3 - No frameworks
+ * Author: KITE Academic Portal
+ */
+
+/* ==================== CSS VARIABLES ==================== */
+:root {
+  /* Primary Colors */
+  --primary: hsl(239, 84%, 67%);
+  --primary-dark: hsl(239, 84%, 60%);
+  --primary-light: hsl(239, 84%, 90%);
+  --primary-foreground: hsl(0, 0%, 100%);
+
+  /* Background Colors */
+  --background: hsl(210, 40%, 98%);
+  --foreground: hsl(222, 47%, 11%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(222, 47%, 11%);
+
+  /* Sidebar Colors */
+  --sidebar-bg: hsl(222, 47%, 11%);
+  --sidebar-foreground: hsl(215, 16%, 65%);
+  --sidebar-accent: hsl(217, 33%, 17%);
+  --sidebar-accent-foreground: hsl(0, 0%, 100%);
+
+  /* Semantic Colors */
+  --success: hsl(142, 76%, 36%);
+  --success-light: hsl(142, 76%, 90%);
+  --success-foreground: hsl(0, 0%, 100%);
+  --warning: hsl(38, 92%, 50%);
+  --warning-light: hsl(38, 92%, 90%);
+  --warning-foreground: hsl(0, 0%, 100%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-light: hsl(0, 84%, 90%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+
+  /* UI Colors */
+  --muted: hsl(210, 40%, 96%);
+  --muted-foreground: hsl(215, 16%, 47%);
+  --border: hsl(214, 32%, 91%);
+  --input: hsl(214, 32%, 91%);
+  --ring: hsl(239, 84%, 67%);
+
+  /* Spacing */
+  --radius: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+
+  /* Shadows */
+  --shadow-card: 0 4px 20px hsla(222, 47%, 11%, 0.05);
+  --shadow-elevated: 0 10px 30px hsla(222, 47%, 11%, 0.08);
+
+  /* Typography */
+  --font-family:
+    "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ==================== RESET & BASE ==================== */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--background);
+  color: var(--foreground);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* ==================== SCREEN MANAGEMENT ==================== */
+.screen {
+  display: none;
+  width: 100%;
+  height: 100vh;
+}
+
+.screen.active {
+  display: flex;
+}
+
+/* ==================== LOGIN SCREEN ==================== */
+.login-layout {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.branding-panel {
+  flex: 1.2;
+  background-color: var(--sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-content {
+  text-align: center;
+  z-index: 1;
+}
+
+.kite-logo {
+  font-size: 5rem;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: -2px;
+  margin-bottom: 0.5rem;
+}
+
+.brand-tagline {
+  color: var(--sidebar-foreground);
+  font-size: 1.125rem;
+  font-weight: 400;
+}
+
+.animation-circle {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border: 2px solid hsla(239, 84%, 67%, 0.1);
+  border-radius: 50%;
+  animation: pulse-ring 4s infinite linear;
+}
+
+.animation-circle-2 {
+  width: 450px;
+  height: 450px;
+  animation-delay: 2s;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+}
+
+.login-panel {
+  flex: 1;
+  background-color: var(--card);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2.5rem;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 400px;
+}
+
+.form-header {
+  margin-bottom: 2rem;
+}
+
+.form-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--card-foreground);
+  margin-bottom: 0.5rem;
+}
+
+.form-subtitle {
+  color: var(--muted-foreground);
+  font-size: 1rem;
+}
+
+/* ==================== FORM ELEMENTS ==================== */
+.input-group {
+  margin-bottom: 1.25rem;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 0.875rem 3rem 0.875rem 1.25rem;
+  background-color: var(--muted);
+  border: 2px solid transparent;
+  border-radius: var(--radius-xl);
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--foreground);
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.form-input:focus,
+.form-select:focus {
+  border-color: var(--primary);
+  background-color: var(--card);
+}
+
+.form-input::placeholder {
+  color: var(--muted-foreground);
+}
+
+.input-icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--muted-foreground);
+  pointer-events: none;
+}
+
+.input-hint {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  margin-top: 0.5rem;
+}
+
+.error-message {
+  display: block;
+  color: var(--destructive);
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  min-height: 1rem;
+}
+
+/* ==================== BUTTONS ==================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  border: none;
+  border-radius: var(--radius-xl);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: var(--primary-foreground);
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.btn-secondary:hover {
+  background-color: var(--border);
+}
+
+.btn-warning {
+  background-color: transparent;
+  color: var(--warning);
+  border: 2px solid var(--warning);
+}
+
+.btn-warning:hover {
+  background-color: var(--warning-light);
+}
+
+.btn-destructive {
+  background-color: var(--destructive);
+  color: var(--destructive-foreground);
+}
+
+.btn-destructive:hover {
+  opacity: 0.9;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+.btn-small {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ==================== SOCIAL LOGIN ==================== */
+.social-login {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.divider-text {
+  display: block;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.social-btn {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: var(--muted);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted-foreground);
+  transition: all 0.3s ease;
+}
+
+.social-btn:hover {
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+
+.social-btn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* ==================== PORTAL LAYOUT ==================== */
+.portal-layout {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+/* ==================== SIDEBAR ==================== */
+.sidebar {
+  width: 280px;
+  min-width: 280px;
+  background-color: var(--sidebar-bg);
+  color: var(--sidebar-foreground);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sidebar-header {
+  margin-bottom: 2rem;
+}
+
+.sidebar-brand {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.role-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  background-color: var(--sidebar-accent);
+}
+
+.faculty-badge {
+  color: var(--sidebar-foreground);
+}
+
+.preview-badge {
+  background-color: var(--warning-light);
+  color: var(--warning);
+}
+
+.student-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background-color: var(--sidebar-accent);
+  border-radius: var(--radius-xl);
+  margin-bottom: 2rem;
+}
+
+.avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: hsla(239, 84%, 67%, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--primary);
+}
+
+.student-name {
+  font-weight: 500;
+  color: var(--sidebar-accent-foreground);
+  font-size: 0.875rem;
+}
+
+.sidebar-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius);
+  color: var(--sidebar-foreground);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.nav-btn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+  background-color: var(--sidebar-accent);
+  color: var(--sidebar-accent-foreground);
+}
+
+.nav-divider {
+  height: 1px;
+  background-color: var(--sidebar-accent);
+  margin: 1rem 0;
+}
+
+.preview-btn {
+  color: var(--warning);
+  border: 1px dashed var(--warning);
+  margin-top: 0.5rem;
+}
+
+.preview-btn:hover {
+  background-color: hsla(38, 92%, 50%, 0.1);
+  color: var(--warning);
+}
+
+.exit-preview-btn {
+  color: var(--warning);
+  border: 1px dashed var(--warning);
+  margin-top: 0.5rem;
+}
+
+.logout-btn {
+  color: var(--destructive);
+  margin-top: auto;
+}
+
+.logout-btn:hover {
+  background-color: hsla(0, 84%, 60%, 0.1);
+  color: var(--destructive);
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.user-info {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--sidebar-foreground);
+  margin-top: 1rem;
+}
+
+.user-info strong {
+  color: var(--sidebar-accent-foreground);
+}
+
+/* ==================== MAIN CONTENT ==================== */
+.main-content {
+  flex: 1;
+  padding: 2.5rem;
+  overflow-y: auto;
+  background-color: var(--background);
+}
+
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.content-header h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+/* ==================== TAB CONTENT ==================== */
+.tab-content {
+  display: none;
+  animation: fade-in 0.3s ease;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================== TABLE STYLES ==================== */
+.table-card {
+  background-color: var(--card);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+  padding: 1.25rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.data-table th {
+  background-color: var(--muted);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--muted-foreground);
+}
+
+.data-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.data-table tbody tr:hover {
+  background-color: hsla(210, 40%, 96%, 0.5);
+}
+
+.grade-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.grade-a {
+  background-color: var(--success-light);
+  color: var(--success);
+}
+
+.grade-b {
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+
+.grade-c {
+  background-color: var(--warning-light);
+  color: var(--warning);
+}
+
+.grade-d {
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+}
+
+.grade-fail {
+  background-color: var(--destructive-light);
+  color: var(--destructive);
+}
+
+.attendance-present {
+  color: var(--success);
+  font-weight: 500;
+}
+
+.attendance-absent {
+  color: var(--destructive);
+  font-weight: 500;
+}
+
+.attendance-not-marked {
+  color: var(--muted-foreground);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: var(--muted-foreground);
+}
+
+/* ==================== MANAGE TAB ==================== */
+.manage-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 2rem;
+}
+
+.form-card {
+  background-color: var(--card);
+  padding: 2rem;
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-card);
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--foreground);
+}
+
+.section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--foreground);
+}
+
+.marks-section {
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+#marks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.mark-input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.mark-input-row .form-input {
+  flex: 1;
+}
+
+.mark-remove-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.visuals-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.tree-card {
+  background-color: var(--card);
+  padding: 1.5rem;
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-card);
+}
+
+.tree-display {
+  background-color: var(--muted);
+  padding: 1rem;
+  border-radius: var(--radius-xl);
+  font-family: "Courier New", monospace;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.stat-card {
+  background-color: var(--card);
+  padding: 1.5rem;
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+
+.stat-card.large {
+  padding: 2rem;
+}
+
+.stat-value {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.stat-primary {
+  color: var(--primary);
+}
+
+.stat-success {
+  color: var(--success);
+}
+
+.stat-warning {
+  color: var(--warning);
+}
+
+/* ==================== ATTENDANCE TAB ==================== */
+.attendance-panel {
+  max-width: 500px;
+}
+
+.radio-group {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.radio-option {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-xl);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.radio-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.radio-option:has(input:checked).radio-option:has(.present-label) {
+  border-color: var(--success);
+  background-color: var(--success-light);
+}
+
+.radio-option:has(input:checked).radio-option:has(.absent-label) {
+  border-color: var(--destructive);
+  background-color: var(--destructive-light);
+}
+
+.radio-option:has(input:checked) .present-label {
+  color: var(--success);
+}
+
+.radio-option:has(input:checked) .absent-label {
+  color: var(--destructive);
+}
+
+.radio-label {
+  font-weight: 500;
+}
+
+.undo-section {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+/* ==================== ANALYTICS TAB ==================== */
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.charts-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.chart-card {
+  background-color: var(--card);
+  padding: 1.5rem;
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-card);
+}
+
+.chart-card.full-width {
+  grid-column: 1 / -1;
+}
+
+.chart-container {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart-empty {
+  color: var(--muted-foreground);
+  text-align: center;
+}
+
+/* Simple CSS Charts */
+.pie-chart {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+}
+
+.legend-color {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 2px;
+}
+
+.performers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.performer-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.performer-name {
+  width: 100px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.performer-bar-container {
+  flex: 1;
+  height: 1.5rem;
+  background-color: var(--muted);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.performer-bar-fill {
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  border-radius: var(--radius);
+  transition: width 0.5s ease;
+}
+
+.performer-value {
+  width: 50px;
+  text-align: right;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+/* ==================== STUDENT REPORT ==================== */
+.report-card {
+  background-color: var(--card);
+  padding: 2.5rem;
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-elevated);
+  max-width: 700px;
+}
+
+.report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.report-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.report-subtitle {
+  color: var(--muted-foreground);
+  font-size: 1rem;
+}
+
+.grade-pill {
+  width: 5rem;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 800;
+  border-radius: var(--radius-2xl);
+  color: var(--primary-foreground);
+}
+
+.grade-pill.grade-a-bg {
+  background-color: var(--success);
+}
+
+.grade-pill.grade-b-bg {
+  background-color: var(--primary);
+}
+
+.grade-pill.grade-c-bg {
+  background-color: var(--warning);
+}
+
+.grade-pill.grade-d-bg {
+  background-color: var(--muted-foreground);
+}
+
+.grade-pill.grade-fail-bg {
+  background-color: var(--destructive);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.marks-breakdown {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.marks-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.marks-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--muted);
+  border-radius: var(--radius-xl);
+}
+
+.marks-list .subject-name {
+  color: var(--muted-foreground);
+}
+
+.marks-list .subject-mark {
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--foreground);
+}
+
+/* ==================== SETTINGS ==================== */
+.settings-card {
+  max-width: 400px;
+}
+
+.disabled-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  color: var(--muted-foreground);
+}
+
+/* ==================== TOAST NOTIFICATIONS ==================== */
+.toast-container {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.toast {
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius-xl);
+  color: white;
+  font-weight: 500;
+  box-shadow: var(--shadow-elevated);
+  animation: slide-in 0.4s ease forwards;
+  min-width: 250px;
+}
+
+.toast-success {
+  background-color: var(--success);
+}
+
+.toast-error {
+  background-color: var(--destructive);
+}
+
+.toast-warning {
+  background-color: var(--warning);
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}
+
+/* ==================== UTILITY CLASSES ==================== */
+.hidden {
+  display: none !important;
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 1024px) {
+  .login-layout {
+    flex-direction: column;
+  }
+
+  .branding-panel {
+    flex: 0 0 200px;
+  }
+
+  .kite-logo {
+    font-size: 3rem;
+  }
+
+  .manage-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .analytics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .charts-row {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 240px;
+    min-width: 240px;
+  }
+
+  .main-content {
+    padding: 1.5rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .portal-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    min-width: 100%;
+    height: auto;
+    padding: 1rem;
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .nav-btn {
+    flex: 1;
+    min-width: calc(50% - 0.25rem);
+    justify-content: center;
+    padding: 0.625rem;
+    font-size: 0.75rem;
+  }
+
+  .nav-btn svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .nav-divider {
+    display: none;
+  }
+
+  .sidebar-footer {
+    display: none;
+  }
+
+  .report-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .grade-pill {
+    align-self: flex-start;
+  }
+}

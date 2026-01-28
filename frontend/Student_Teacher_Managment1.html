@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="KITE Academic Portal" />
+    <meta
+      name="description"
+      content="Student & Faculty Management Portal - Advanced Academic Management System"
+    />
+    <title>Kite - Academic Portal</title>
+    <link rel="icon" href="data:," />
+
+    <link rel="stylesheet" href="Student_Teacher_Managment1.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+    <div id="login-screen" class="screen active">
+      <div class="login-layout">
+        <div class="branding-panel">
+          <div class="brand-content">
+            <h1 class="kite-logo">Kite</h1>
+            <p class="brand-tagline">Advanced Academic Management</p>
+          </div>
+          <div class="animation-circle"></div>
+          <div class="animation-circle animation-circle-2"></div>
+        </div>
+
+        <div class="login-panel">
+          <form id="login-form" class="login-form" novalidate>
+            <div class="form-header">
+              <h2 class="form-title">Portal Login</h2>
+              <p class="form-subtitle">Enter your credentials to continue</p>
+            </div>
+
+            <div class="input-group">
+              <div class="input-wrapper">
+                <input
+                  type="text"
+                  id="login-username"
+                  class="form-input"
+                  placeholder="Username"
+                  required
+                  autocomplete="username"
+                />
+                <svg
+                  class="input-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
+              <span id="username-error" class="error-message"></span>
+            </div>
+
+            <div class="input-group">
+              <div class="input-wrapper">
+                <input
+                  type="password"
+                  id="login-password"
+                  class="form-input"
+                  placeholder="Password"
+                  required
+                  autocomplete="current-password"
+                />
+                <svg
+                  class="input-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+              </div>
+              <span id="password-error" class="error-message"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full">
+              Login
+            </button>
+
+            <div class="social-login">
+              <span class="divider-text">or access via</span>
+              <div class="social-icons">
+                <button
+                  type="button"
+                  class="social-btn"
+                  aria-label="Login with Google"
+                >
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                      d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                    />
+                    <path
+                      d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                    />
+                    <path
+                      d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                    />
+                    <path
+                      d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                    />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  class="social-btn"
+                  aria-label="Login with GitHub"
+                >
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                      d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div id="faculty-portal" class="screen">
+      <div class="portal-layout">
+        <aside class="sidebar">
+          <div class="sidebar-header">
+            <h1 class="sidebar-brand">Kite</h1>
+            <span class="role-badge faculty-badge">Faculty Mode</span>
+          </div>
+
+          <nav class="sidebar-nav">
+            <button class="nav-btn active" data-tab="dashboard">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="3" y="3" width="7" height="9" />
+                <rect x="14" y="3" width="7" height="5" />
+                <rect x="14" y="12" width="7" height="9" />
+                <rect x="3" y="16" width="7" height="5" />
+              </svg>
+              Dashboard
+            </button>
+            <button class="nav-btn" data-tab="manage">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="8.5" cy="7" r="4" />
+                <line x1="20" y1="8" x2="20" y2="14" />
+                <line x1="23" y1="11" x2="17" y2="11" />
+              </svg>
+              Manage Students
+            </button>
+            <button class="nav-btn" data-tab="attendance">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+                <path d="M9 16l2 2 4-4" />
+              </svg>
+              Attendance
+            </button>
+            <button class="nav-btn" data-tab="analytics">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <line x1="18" y1="20" x2="18" y2="10" />
+                <line x1="12" y1="20" x2="12" y2="4" />
+                <line x1="6" y1="20" x2="6" y2="14" />
+              </svg>
+              Analytics
+            </button>
+
+            <div class="nav-divider"></div>
+
+            <button class="nav-btn preview-btn" id="btn-preview-mode">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              Student Preview
+            </button>
+          </nav>
+
+          <div class="sidebar-footer">
+            <button class="nav-btn logout-btn" id="faculty-logout">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" y1="12" x2="9" y2="12" />
+              </svg>
+              Logout
+            </button>
+            <div class="user-info">
+              <span>Faculty: </span>
+              <strong id="faculty-name">—</strong>
+            </div>
+          </div>
+        </aside>
+
+        <main class="main-content">
+          <header class="content-header">
+            <h2 id="faculty-tab-title">Student Dashboard</h2>
+          </header>
+
+          <section id="tab-dashboard" class="tab-content active">
+            <div class="table-card">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Roll No</th>
+                    <th>Name</th>
+                    <th>Grade</th>
+                    <th>Subjects</th>
+                    <th>Total</th>
+                    <th>%</th>
+                    <th>Attendance</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="student-table-body"></tbody>
+              </table>
+              <div id="empty-table-message" class="empty-state">
+                No students registered yet. Add your first student from the
+                Manage tab.
+              </div>
+            </div>
+          </section>
+
+          <section id="tab-manage" class="tab-content">
+            <div class="manage-grid">
+              <div class="form-card">
+                <h3 class="card-title">Add / Update Student</h3>
+                <form id="student-form">
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      id="student-name"
+                      class="form-input"
+                      placeholder="Full Name"
+                      required
+                    />
+                  </div>
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      id="student-roll"
+                      class="form-input"
+                      placeholder="Roll Number"
+                      required
+                    />
+                  </div>
+
+                  <div class="marks-section">
+                    <h4 class="section-title">Marks Management</h4>
+                    <div id="marks-container"></div>
+                    <button
+                      type="button"
+                      id="add-subject-btn"
+                      class="btn btn-secondary btn-small"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        class="btn-icon"
+                      >
+                        <line x1="12" y1="5" x2="12" y2="19" />
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                      </svg>
+                      Add Subject
+                    </button>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary btn-full">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      class="btn-icon"
+                    >
+                      <path
+                        d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"
+                      />
+                      <polyline points="17 21 17 13 7 13 7 21" />
+                      <polyline points="7 3 7 8 15 8" />
+                    </svg>
+                    Save Student
+                  </button>
+                </form>
+              </div>
+
+              <div class="visuals-panel">
+                <div class="tree-card">
+                  <h3 class="card-title">Class Tree</h3>
+                  <pre id="class-tree-display" class="tree-display"></pre>
+                </div>
+
+                <div class="stats-row">
+                  <div class="stat-card">
+                    <span class="stat-value stat-primary" id="stat-total"
+                      >0</span
+                    >
+                    <span class="stat-label">Total Students</span>
+                  </div>
+                  <div class="stat-card">
+                    <span class="stat-value stat-success" id="stat-present"
+                      >0</span
+                    >
+                    <span class="stat-label">Present Today</span>
+                  </div>
+                  <div class="stat-card">
+                    <span class="stat-value stat-warning" id="stat-average"
+                      >0%</span
+                    >
+                    <span class="stat-label">Avg. Score</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="tab-attendance" class="tab-content">
+            <div class="attendance-panel">
+              <div class="form-card">
+                <h3 class="card-title">Mark Attendance</h3>
+                <form id="attendance-form">
+                  <div class="input-group">
+                    <select
+                      id="attendance-student"
+                      class="form-select"
+                      required
+                    >
+                      <option value="">Select Student</option>
+                    </select>
+                  </div>
+
+                  <div class="radio-group">
+                    <label class="radio-option">
+                      <input
+                        type="radio"
+                        name="attendance-status"
+                        value="Present"
+                        required
+                      />
+                      <span class="radio-label present-label">Present</span>
+                    </label>
+                    <label class="radio-option">
+                      <input
+                        type="radio"
+                        name="attendance-status"
+                        value="Absent"
+                      />
+                      <span class="radio-label absent-label">Absent</span>
+                    </label>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary btn-full">
+                    Update Attendance
+                  </button>
+                </form>
+
+                <div class="undo-section">
+                  <button
+                    id="undo-attendance-btn"
+                    class="btn btn-warning btn-full"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      class="btn-icon"
+                    >
+                      <polyline points="1 4 1 10 7 10" />
+                      <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+                    </svg>
+                    Undo Last Action (<span id="undo-count">0</span>)
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="tab-analytics" class="tab-content">
+            <div class="analytics-grid">
+              <div class="stat-card large">
+                <span class="stat-value stat-primary" id="analytics-total"
+                  >0</span
+                >
+                <span class="stat-label">Total Students</span>
+              </div>
+              <div class="stat-card large">
+                <span class="stat-value stat-success" id="analytics-average"
+                  >N/A</span
+                >
+                <span class="stat-label">Class Average</span>
+              </div>
+              <div class="stat-card large">
+                <span class="stat-value stat-warning" id="analytics-attendance"
+                  >N/A</span
+                >
+                <span class="stat-label">Attendance Rate</span>
+              </div>
+              <div class="stat-card large">
+                <span class="stat-value stat-primary" id="analytics-pass"
+                  >N/A</span
+                >
+                <span class="stat-label">Pass Rate</span>
+              </div>
+            </div>
+
+            <div class="charts-row">
+              <div class="chart-card">
+                <h3 class="card-title">Grade Distribution</h3>
+                <div id="grade-chart" class="chart-container"></div>
+              </div>
+              <div class="chart-card">
+                <h3 class="card-title">Attendance Overview</h3>
+                <div id="attendance-chart" class="chart-container"></div>
+              </div>
+            </div>
+
+            <div class="chart-card full-width">
+              <h3 class="card-title">Top Performers</h3>
+              <div id="performers-chart" class="performers-list"></div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <div id="student-portal" class="screen">
+      <div class="portal-layout">
+        <aside class="sidebar">
+          <div class="sidebar-header">
+            <h1 class="sidebar-brand">Kite</h1>
+            <span id="preview-badge" class="role-badge preview-badge hidden"
+              >Preview Mode</span
+            >
+          </div>
+
+          <div class="student-profile">
+            <div class="avatar">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </div>
+            <div id="student-display-name" class="student-name">
+              Student Name
+            </div>
+          </div>
+
+          <nav class="sidebar-nav">
+            <button class="nav-btn active" data-tab="report">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+              </svg>
+              My Report
+            </button>
+            <button
+              class="nav-btn"
+              data-tab="settings"
+              id="student-settings-nav"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="12" cy="12" r="3" />
+                <path
+                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+                />
+              </svg>
+              Settings
+            </button>
+
+            <div class="nav-divider"></div>
+
+            <button
+              class="nav-btn exit-preview-btn hidden"
+              id="btn-exit-preview"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+              Exit Preview
+            </button>
+          </nav>
+
+          <div class="sidebar-footer">
+            <button class="nav-btn logout-btn" id="student-logout">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" y1="12" x2="9" y2="12" />
+              </svg>
+              Logout
+            </button>
+          </div>
+        </aside>
+
+        <main class="main-content">
+          <section id="tab-report" class="tab-content active">
+            <div class="report-card">
+              <div class="report-header">
+                <div>
+                  <h2 id="report-name" class="report-title">Student Name</h2>
+                  <p id="report-roll" class="report-subtitle">Roll No: 000</p>
+                </div>
+                <div id="report-grade" class="grade-pill">F</div>
+              </div>
+
+              <div class="stats-grid">
+                <div class="stat-card">
+                  <span class="stat-label">Percentage</span>
+                  <span id="report-percentage" class="stat-value">0%</span>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-label">Total Marks</span>
+                  <span id="report-total" class="stat-value">0</span>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-label">Attendance</span>
+                  <span id="report-attendance" class="stat-value"
+                    >Not Marked</span
+                  >
+                </div>
+              </div>
+
+              <div class="marks-breakdown">
+                <h3 class="section-title">Subject Breakdown</h3>
+                <ul id="report-marks-list" class="marks-list"></ul>
+                <p id="no-marks-message" class="empty-state">
+                  No marks recorded yet.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section id="tab-settings" class="tab-content">
+            <div class="form-card settings-card">
+              <h2 class="card-title">Account Settings</h2>
+              <form id="settings-form">
+                <div class="input-group">
+                  <input
+                    type="email"
+                    id="settings-email"
+                    class="form-input"
+                    placeholder="Email Address"
+                    required
+                  />
+                </div>
+                <div class="input-group">
+                  <input
+                    type="password"
+                    id="settings-password"
+                    class="form-input"
+                    placeholder="New Password"
+                    required
+                  />
+                  <span
+                    id="settings-password-error"
+                    class="error-message"
+                  ></span>
+                  <small class="input-hint"
+                    >Min 8 chars, 1 uppercase, 1 special character</small
+                  >
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">
+                  Save Changes
+                </button>
+              </form>
+            </div>
+          </section>
+
+          <section id="tab-settings-disabled" class="tab-content">
+            <div class="disabled-message">
+              <p>Settings disabled in preview mode</p>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script src="Student_Teacher_Managment1.js" defer></script>
+  </body>
+</html>
