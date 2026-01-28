@@ -1119,42 +1119,83 @@ body {
 .hidden {
   display: none !important;
 }
+/* ==================== RESPONSIVE DESIGN (UPDATED) ==================== */
 
-/* ==================== RESPONSIVE DESIGN ==================== */
+/* Tablet & Small Laptops (max-width: 1024px) */
 @media (max-width: 1024px) {
   .login-layout {
     flex-direction: column;
+    overflow-y: auto; /* Allow scrolling if content is tall */
   }
 
   .branding-panel {
-    flex: 0 0 200px;
+    flex: 0 0 250px; /* Fixed height header */
+    padding: 2rem;
   }
 
   .kite-logo {
-    font-size: 3rem;
+    font-size: 3.5rem;
+  }
+
+  .animation-circle {
+    width: 200px;
+    height: 200px;
+  }
+
+  .animation-circle-2 {
+    width: 300px;
+    height: 300px;
   }
 
   .manage-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* Stack form and list */
   }
 
   .analytics-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* 2x2 grid for stats */
   }
 
   .charts-row {
-    grid-template-columns: 1fr;
-  }
-
-  .stats-row {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* Stack charts */
   }
 }
 
+/* Tablets (max-width: 768px) */
 @media (max-width: 768px) {
   .sidebar {
-    width: 240px;
-    min-width: 240px;
+    width: 80px; /* Collapsed sidebar style */
+    min-width: 80px;
+    padding: 1rem 0.5rem;
+    align-items: center;
+  }
+
+  .sidebar-brand,
+  .role-badge,
+  .nav-btn span, /* Hide text labels */
+  .user-info,
+  .sidebar-footer .nav-btn {
+    display: none;
+  }
+
+  .nav-btn {
+    justify-content: center;
+    padding: 0.75rem;
+  }
+
+  .nav-btn svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0;
+  }
+
+  .student-profile {
+    padding: 0;
+    background: transparent;
+    justify-content: center;
+  }
+
+  .student-name {
+    display: none;
   }
 
   .main-content {
@@ -1162,66 +1203,115 @@ body {
   }
 
   .stats-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .data-table th,
-  .data-table td {
-    padding: 0.75rem;
-    font-size: 0.875rem;
-  }
-
-  .analytics-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* Stack stats */
   }
 }
 
+/* Mobile Devices (max-width: 640px) */
 @media (max-width: 640px) {
   .portal-layout {
-    flex-direction: column;
+    flex-direction: column; /* Stack sidebar on top */
+    height: auto;
+    min-height: 100vh;
   }
 
   .sidebar {
     width: 100%;
     min-width: 100%;
     height: auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     padding: 1rem;
+    background-color: var(--sidebar-bg);
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
 
+  .sidebar-header {
+    margin-bottom: 0;
+  }
+
+  .sidebar-brand {
+    display: block;
+    font-size: 1.5rem;
+    margin: 0;
+  }
+
+  /* Horizontal Scrollable Nav for Mobile */
   .sidebar-nav {
     flex-direction: row;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 0;
+    gap: 1rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--sidebar-bg);
+    padding: 0.75rem;
+    border-top: 1px solid var(--sidebar-accent);
+    justify-content: space-around;
   }
 
   .nav-btn {
-    flex: 1;
-    min-width: calc(50% - 0.25rem);
-    justify-content: center;
-    padding: 0.625rem;
-    font-size: 0.75rem;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.65rem;
+    padding: 0.25rem;
+    border-radius: 0;
+    color: var(--sidebar-foreground);
+  }
+  
+  .nav-btn span {
+      display: block; /* Show text again on bottom nav */
   }
 
   .nav-btn svg {
-    width: 1rem;
-    height: 1rem;
+    width: 1.25rem;
+    height: 1.25rem;
   }
 
-  .nav-divider {
-    display: none;
+  .nav-btn.active {
+    color: var(--primary);
+    background: transparent;
+  }
+  
+  .main-content {
+      padding: 1rem;
+      padding-bottom: 5rem; /* Space for bottom nav */
   }
 
-  .sidebar-footer {
-    display: none;
+  /* Login Screen Mobile Adjustments */
+  .branding-panel {
+    flex: 0 0 150px;
+    padding: 1.5rem;
   }
 
-  .report-header {
-    flex-direction: column;
-    gap: 1rem;
+  .kite-logo {
+    font-size: 2.5rem;
   }
 
-  .grade-pill {
-    align-self: flex-start;
+  .login-panel {
+    padding: 1.5rem;
+    align-items: flex-start; /* Align to top */
+  }
+  
+  .form-title {
+      font-size: 1.5rem;
+  }
+
+  .analytics-grid {
+    grid-template-columns: 1fr; /* Stack single column */
+  }
+  
+  .stats-row {
+      grid-template-columns: 1fr;
+  }
+
+  /* Hide less critical elements on tiny screens */
+  .animation-circle, .animation-circle-2 {
+      display: none;
   }
 }
-
